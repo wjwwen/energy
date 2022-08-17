@@ -1,6 +1,6 @@
-# LSTM for multivariate time series
+# LSTM
 
-# 5 independent variables 
+# 5 independent variables in csv
 # 1. Gold Futures (GOLD)
 # 2. S&P 500 Futures (SP500)
 # 3. US Dollar Index (USDINDEX)
@@ -41,7 +41,7 @@ print(f"the correlation is {corr5}")
 # %%
 # DATA PREPROCESSING
 # train 80%, test 20%
-price_data = df.loc[:, ["WTI", "Gold"]].values
+price_data = df.iloc[:, 1:2].values
 price_data = price_data.reshape((-1,1)) 
 
 split_percent = 0.80
@@ -68,7 +68,7 @@ trainData.shape
 X_train = []
 y_train = []
 
-for i in range (60, 4948): # 60: timestep // 4948: length of the data
+for i in range (60, 3879): # 60: timestep // 3879: length of the data
     X_train.append(trainData[i-60:i,0]) 
     y_train.append(trainData[i,0])
 
