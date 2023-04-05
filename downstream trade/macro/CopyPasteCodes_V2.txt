@@ -1,0 +1,43 @@
+COPY AND PASTE RANGE FROM SAME WORKBOOK TO ANOTHER TAB (RANGE)
+
+Sub Paste_Range()
+  'Range.Copy to other worksheets
+    Worksheets("Naphtha").Range("F3:Z235").Copy Worksheets("Formula").Range("F3")
+End Sub
+
+COPY AND PASTE RANGE FROM SAME WORKBOOK TO ANOTHER TAB 
+(must open current tab that needs to be copied)
+
+Sub CopyPasteNaphthaPFM()
+
+Range("A2:Z22").Copy Destination:=Sheets("Formula (Export)").Range("C115")
+Range("A2:Z22").Copy
+Sheets("Formula (Export)").Range("C115").PasteSpecial Paste:=xlPasteValues, Operation:=xlNone, _
+SkipBlanks:=False, Transpose:=False
+
+End Sub
+
+
+
+COPY AND PASTE ONE WORKBOOK SHEET TO ANOTHER WORKBOOK SHEET
+
+Sub foo()
+
+Dim Filename As String, currFilename As String
+Dim x As Workbook
+
+Application.ScreenUpdating = False
+currFilename = ThisWorkbook.Name
+Filename = Application.GetOpenFilename
+Set x = Workbooks.Open(Filename)
+
+x.Sheets("Naphtha").Range("A1:Z10000").Copy
+Workbooks(currFilename).Sheets("Sheet7").Range("A1").PasteSpecial xlPasteValue
+
+Application.DisplayAlerts = False
+x.Close SaveChanges:=False
+Application.DisplayAlerts = True
+Application.ScreenUpdating = True
+
+
+End Sub

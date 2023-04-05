@@ -1,0 +1,40 @@
+Option Explicit
+
+Sub InputText()
+    Dim oPPApp As Object, oPPPrsn As Object, oPPSlide As Object
+    Dim oPPShape As Object
+    Dim FlName As String
+
+    ' Read PPT file name
+    FlName = "C:\Users\jingwen.wang\Desktop\GasolineTest.PPTX"
+
+    ' Establish PowerPoint application object
+    On Error Resume Next
+    Set oPPApp = GetObject(, "PowerPoint.Application")
+
+    If Err.Number <> 0 Then
+        Set oPPApp = CreateObject("PowerPoint.Application")
+    End If
+    Err.Clear
+    On Error GoTo 0
+
+    oPPApp.Visible = True
+
+    ' Open PPT file
+    Set oPPPrsn = oPPApp.Presentations.Open(FlName)
+    ' Slide with shape to input text
+    Set oPPSlide = oPPPrsn.Slides(2)
+    ' Shape name
+    Set oPPShape = oPPSlide.Shapes("IndiaSG1")
+    ' Write to shape
+    oPPShape.TextFrame.TextRange.Text = _
+    ThisWorkbook.Sheets("Sheet1").Range("I6").Value
+    
+    ' Shape name
+    Set oPPShape = oPPSlide.Shapes("IndiaSG2")
+    ' Write to shape
+    oPPShape.TextFrame.TextRange.Text = _
+    ThisWorkbook.Sheets("Sheet1").Range("J6").Value
+
+End Sub
+

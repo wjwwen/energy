@@ -1,0 +1,73 @@
+Sub foo3()
+
+Dim x As Workbook
+Dim y As Workbook
+Dim vals As Variant
+
+'## Open both workbooks first:
+Set x = Workbooks.Open("\\sin-2pbos01\Pgspore\models\Country Product Trade\GTI\OMD_2710.xlsm.")
+Set y = Workbooks.Open("\\C:\Users\jingwen.wang\Desktop\PowerBI\Crude Imports_09212020.xlsm.")
+
+'Store the value in a variable:
+vals = x.Sheet("Naphtha").Range("A1:AA333").Value
+
+'Use the variable to assign a value to the other file/sheet:
+y.Sheets("Sheet7").Range("A1").Value = vals
+
+'Close x:
+x.Close
+
+End Sub
+
+
+OR 
+
+
+Sub foo3()
+Dim x As Workbook
+Dim y As Workbook
+Dim vals As Variant
+
+'## Open both workbooks first:
+Set x = Workbooks.Open("\\sin-2pbos01\Pgspore\models\Country Product Trade\GTI\OMD_2710.xlsm.")
+Set y = Workbooks.Open("C:\Users\jingwen.wang\Desktop\PowerBI\Crude Imports_09212020.xlsx")
+
+'Now, transfer values from x to y:
+With x.Sheets("Naphtha").Range("F26:AA26").Copy_
+    y.Sheets("Sheet7").Range("F14").Resize(.Rows.Count, .Columns.Count).Value = .Value
+    
+End With
+   
+
+End Sub
+
+Sub foo()
+
+Dim Filename As String, currFilename As String
+Dim x As Workbook
+
+Application.ScreenUpdating = False
+currFilename = ThisWorkbook.Name
+Filename = Application.GetOpenFilename
+Set x = Workbooks.Open(Filename)
+
+x.Sheets("Naphtha").Range("A1:Z10000").Copy
+Workbooks(currFilename).Sheets("Sheet7").Range("A1").PasteSpecial xlPasteValue
+
+Application.DisplayAlerts = False
+x.Close SaveChanges:=False
+Application.DisplayAlerts = True
+Application.ScreenUpdating = True
+
+
+End Sub
+
+
+Sub Paste_Range()
+  'Range.Copy to other worksheets
+    Worksheets("Naphtha").Range("A1:Z235").Copy Worksheets("Formula").Range("A1")
+End Sub
+
+
+
+

@@ -1,0 +1,35 @@
+<<COPY AND PASTE WORKSHEET (SAME WORKBOOK)>>
+
+Sub Paste_Range()
+  'Range.Copy to other worksheets
+    Worksheets("Naphtha Import for PFM").Range("A2:Z72").Copy Worksheets("Formula (Export)").Range("B115")
+End Sub
+
+<<COPY FROM OTHER WORKBOOK (OPEN WORKBOOK FIRST) AND PASTE TO NEW WORKBOOK SHEET>>
+
+Sub CopyPasteWB()
+Dim Filename As String, currFilename As String
+Dim x As Workbook
+
+Application.ScreenUpdating = False
+currFilename = ThisWorkbook.Name
+Filename = Application.GetOpenFilename
+Set x = Workbooks.Open(Filename)
+
+x.Sheets("Naphtha").Range("A1:Z10000").Copy
+Workbooks(currFilename).Sheets("Naphtha").Range("A1").PasteSpecial xlPasteValues
+
+Application.DisplayAlerts = False
+x.Close SaveChanges:=False
+Application.DisplayAlerts = True
+Application.ScreenUpdating = True
+
+
+End Sub
+
+<<COPY AND PASTE WORKBOOK SHEET TO ANOTHER TAB>>
+Sub Paste_Range()
+  'Range.Copy to other worksheets
+    Workbooks("OMD_TradeForecast").Sheets("Naphtha Import for PFM").Range("C6:H56").Copy
+Workbooks("OMD_TradeForecast").Sheets("(PBI) Naphtha Import for PFM").Range("C2").PasteSpecial xlPasteValues
+End Sub

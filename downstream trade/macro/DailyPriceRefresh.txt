@@ -1,0 +1,38 @@
+Sub UpdatePrice()
+'
+' Daily_Update Macro
+'
+' Cells(Application.Rows.Count, 1).End(xlUp).Offset(1, 0).Select
+Dim i As Integer
+
+For i = 2 To 16
+Worksheets(i).Activate
+
+Cells(Application.Rows.Count, 1).End(xlUp).Select
+
+ActiveCell.EntireRow.Copy
+
+ActiveCell.Offset(1, 0).PasteSpecial
+
+ActiveSheet.Calculate
+
+Next i
+
+'Worksheets("MarineFuel-DlyPrices").Activate
+'Cells(Application.Rows.Count, 1).End(xlUp).Select
+'
+'ActiveCell.EntireRow.Copy
+'
+'ActiveCell.Offset(1, 0).PasteSpecial
+'
+'ctiveSheet.Calculate
+
+Worksheets("Regional Crack").Activate
+
+ActiveSheet.Calculate
+
+Cells(1, 1).Select
+
+
+
+End Sub
